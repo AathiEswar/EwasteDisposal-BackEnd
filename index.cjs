@@ -16,11 +16,11 @@ app.use(express.json());
 app.use(
     cors({
       credentials: true,
-      origin: process.env.CLIENT_URL_LOCAL || "https://ewaste-disposal.vercel.app",
+      origin: "https://ewaste-disposal.vercel.app",
     })
   );
   
-
+  // process.env.CLIENT_URL_LOCAL
 
 const mongoose = require("mongoose");
 
