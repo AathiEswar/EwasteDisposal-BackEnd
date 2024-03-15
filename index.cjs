@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(
     cors({
       credentials: true,
-      origin: "https://ewaste-disposal.vercel.app",
+      origin: process.env.CLIENT_URL_LOCAL || "https://ewaste-disposal.vercel.app",
     })
   );
   
