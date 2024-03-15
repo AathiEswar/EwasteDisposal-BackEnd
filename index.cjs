@@ -19,7 +19,7 @@ app.use(
       origin: "https://ewaste-disposal.vercel.app",
     })
   );
-  
+  //"https://ewaste-disposal.vercel.app"
   // process.env.CLIENT_URL_LOCAL
 
 const mongoose = require("mongoose");
