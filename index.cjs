@@ -18,7 +18,8 @@ app.use(bodyParser.json());
 app.use(
     cors({
       credentials: true,
-      origin: process.env.CLIENT_URL_LOCAL,
+     // origin: process.env.CLIENT_URL_LOCAL,
+      origin: "https://ewaste-disposal.vercel.app",
     })
   );
   //"https://ewaste-disposal.vercel.app"
