@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 app.use(
     cors({
       credentials: true,
-      //origin: process.env.CLIENT_URL_LOCAL,
-     origin: "https://ewaste-disposal.vercel.app",
+    //origin: process.env.CLIENT_URL_LOCAL,
+    origin: "https://ewaste-disposal.vercel.app",
     })
   );
   //"https://ewaste-disposal.vercel.app"
@@ -55,11 +55,9 @@ app.post("/admin" , async (req, res)=>{
   const { Useremail }= req.body
 //console.log(Useremail);
   const customerData = await centerModel.findOne({email : Useremail})
-  //console.log("customer data:",customerData.customers);
+ // console.log("customer data:",customerData.customers);
 
-  const uniqueCustomers = customerData.customers.filter((value, index, self) => {
-    return self.findIndex(obj => obj[0].id === value[0].id) === index;
-  });
+  const uniqueCustomers = customerData.customers
 
 //console.log(uniqueCustomers);
   res.json({uniqueCustomers})
