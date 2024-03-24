@@ -5,7 +5,7 @@ const centerSchema = new mongoose.Schema({
     Name_Address : String ,
     Installed_Capacity_Metric_Tons_per_Annum_MTA : Number, 
     email : String ,
-    customers : Array,
+    customers : {type:  Array , unique: true},
     
 })
 

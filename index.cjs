@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 app.use(
     cors({
       credentials: true,
-     // origin: process.env.CLIENT_URL_LOCAL,
-      origin: "https://ewaste-disposal.vercel.app",
+      //origin: process.env.CLIENT_URL_LOCAL,
+     origin: "https://ewaste-disposal.vercel.app",
     })
   );
   //"https://ewaste-disposal.vercel.app"
@@ -38,12 +38,14 @@ app.get("/search" , async (req , res)=>{
 
 
 app.post("/search" , async(req,res)=>{
-      const {userId , centerId} = req.body;
-     
-      //res.json("got the userId and centerId");
+      const {userData , centerId, address} = req.body;
+
+      //console.log("address of user from front : ",address);
+      //console.log(userData.id);
       const objectId = new mongoose.Types.ObjectId(centerId);
-      const updateUserToCenter = await centerModel.updateOne({ _id: objectId }, { $push: { customers: userId } })
-      res.send(updateUserToCenter)
+
+      const updateUserToCenter = await centerModel.updateOne({ _id: objectId }, {  $addToSet : { customers: [userData, address] } })
+      //res.send(updateUserToCenter)
       //console.log(updateUserToCenter);
 
 
@@ -53,15 +55,16 @@ app.post("/admin" , async (req, res)=>{
   const { Useremail }= req.body
 //console.log(Useremail);
   const customerData = await centerModel.findOne({email : Useremail})
-  //console.log(customerData.customers);
-  const uniqueCustomers = customerData.customers.filter((value, index, self) => {
-    return self.indexOf(value) === index;
-  });
-  //console.log(uniqueCustomers);
+  //console.log("customer data:",customerData.customers);
 
+  const uniqueCustomers = customerData.customers.filter((value, index, self) => {
+    return self.findIndex(obj => obj[0].id === value[0].id) === index;
+  });
+
+//console.log(uniqueCustomers);
   res.json({uniqueCustomers})
   // console.log(customerData._id);
-  // res.send("hello mfs")
+ 
 })
 
 const PORT = process.env.PORT;
